@@ -114,6 +114,7 @@ func saveAccounts ()-> Void {
 
 
 
+
 func readUsers () -> Void {
     let fileName = "Users.txt";
     var text = """
@@ -169,6 +170,8 @@ func ExitIfWantsTo () -> Void {
     print("Press 0 to exit or 1 To go Back")
     let option = Int(readLine()!)!;
     if(option == 0){
+        saveAccounts ()
+        saveUsers()
         exit(0)
     }
 };
