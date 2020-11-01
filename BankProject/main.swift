@@ -8,20 +8,34 @@
 
 import Foundation
 
-struct Account {
+class Account {
     var clientID: String;
     var accountType: String;
     var ClientName: String;
     var Contact: String;
     var accountNo: Int;
     var currentBalance: Double;
-    var previousTransaction: Double? = 0;
+    var previousTransaction: Double ;
+    
+    init (clientID: String , accountType: String , ClientName: String , Contact: String , accountNo: Int ,currentBalance: Double , previousTransaction: Double  ){
+        self.clientID = clientID
+        self.accountType = accountType
+        self.ClientName = ClientName
+        self.Contact = Contact
+        self.accountNo = accountNo
+        self.currentBalance = currentBalance
+        self.previousTransaction = previousTransaction
+    }
+    
     func login (userName: String, password: String) -> Bool {
         
         return true;
     }
-    func printInfo() -> Void {
+    func printInfoBanker() -> Void {
         print("\(clientID)\t\(accountNo)\t\(accountType)\t\(ClientName)\t\(Contact)")
+    }
+    func printInfoCustomer() -> Void {
+        print("\(clientID)\t\(accountNo)\t\(accountType)\t\(ClientName)\t\(Contact)\t\(currentBalance)\t\(previousTransaction))")
     }
 }
 
@@ -220,7 +234,7 @@ func handleBankerOptions () -> Void {
         if(option == 1){
             print("|ClientID\t accountNo|\taccountType|\tClientName|\tContact")
             for account in AllAccounts {
-                account.printInfo()
+                account.printInfoBanker()
             }
         }
         if(option == 2){
@@ -252,7 +266,7 @@ func handleBankerOptions () -> Void {
             AllAccounts.append(newAccount);
             
             print("Account Created SuccessFully");
-            newAccount.printInfo();
+            newAccount.printInfoBanker();
         }
         if(option == 3){
             
@@ -366,11 +380,11 @@ func handleCustomerOptions (clientId: String) -> Void {
             
             
             print("Your Account Details");
-            accounts.forEach({$0.printInfo()});
+            accounts.forEach({$0.printInfoCustomer()});
             break;
         case 2:
             print("Your Account Details");
-            accounts.forEach({$0.printInfo()});
+            accounts.forEach({$0.printInfoCustomer()});
             
          let sourceAccountNum = Int(askQuestion(ques: "Confirm the Account number from which the transaction to be done (from the list shown) "))!;
        let destAccountNum = Int(askQuestion(ques: "Enter the Account number for which amount to be transfered"))!;
@@ -381,7 +395,7 @@ func handleCustomerOptions (clientId: String) -> Void {
                     
         case 3:
             print("Your Account Details");
-            accounts.forEach({$0.printInfo()});
+            accounts.forEach({$0.printInfoCustomer()});
             let accountNum = Int(askQuestion(ques: "Confirm the Account number to be deposited\n"))!;
             
             let amount = Double(askQuestion(ques: "Enter Amount To be Deposited"))!;
@@ -392,7 +406,7 @@ func handleCustomerOptions (clientId: String) -> Void {
             }
         case 4:
             print("Your Account Details");
-                       accounts.forEach({$0.printInfo()});
+                       accounts.forEach({$0.printInfoCustomer()});
             let accountNum = Int(askQuestion(ques: "Confirm the Account number from which you want to withdraw the amount:"))!;
             let amount = Double(askQuestion(ques: "Enter the Amount "))!;
             if(handleWithDrawal(accountNum: accountNum, amount: amount)){
@@ -402,7 +416,7 @@ func handleCustomerOptions (clientId: String) -> Void {
             }
         case 5 :
             print("Your Account Details");
-            accounts.forEach({$0.printInfo()});
+            accounts.forEach({$0.printInfoCustomer()});
             let utils = ["Mobile Recharge","Electricity Bill", "Wifi Bill", "Insurance", "Gas Bill"];
             let ubNum = Int(askQuestion(ques: """
             Select the Utility type to make payment
