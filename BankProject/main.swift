@@ -17,6 +17,7 @@ struct Account {
     var currentBalance: Double;
     var previousTransaction: Double? = 0;
     func login (userName: String, password: String) -> Bool {
+        
         return true;
     }
     func printInfo() -> Void {
@@ -62,7 +63,7 @@ func saveToFile (fileName:String, content: String)-> Void {
 }
 
 func readFromFile (fileName: String) -> String {
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first  {
 
            let fileURL = dir.appendingPathComponent(fileName);
     //reading
@@ -99,7 +100,7 @@ func convertTextToAccounts(text: String) -> Void {
     let arr = text.split(separator: "\n");
     arr.forEach{
         let details = $0.split(separator: ",");
-        AllAccounts.append(Account(clientID: String(details[0]), accountType: String(details[1]), ClientName: String(details[2]), Contact: String(details[3]), accountNo: Int(String(details[4])) ?? 100000, currentBalance: (String(details[5]) as NSString).doubleValue))
+        AllAccounts.append(Account(clientID: String(details[0]), accountType: String(details[1]), ClientName: String(details[2]), Contact: String(details[3]), accountNo: Int(String(details[4])) ?? 100000, currentBalance: (String(details[5]) as NSString).doubleValue,previousTransaction : (String(details[6]) as NSString).doubleValue))
     }
 }
 func saveAccounts ()-> Void {
@@ -243,8 +244,8 @@ func handleBankerOptions () -> Void {
             let clientId: String = oldAccount == nil ? askQuestion(ques: "Enter ClientId:"): oldAccount!.clientID;
             let clientName: String = oldAccount == nil  ? askQuestion(ques: "Enter Client Name:"): oldAccount!.clientID;
             let contact: String = oldAccount == nil ? askQuestion(ques: "Enter Contact:"): oldAccount!.Contact;
-            let accountType: String = Int(askQuestion(ques: "Enter the Account Type to be created:\n\n 1.Savings account \t 2 Current account\n")) == 1 ? "Savings" : "Current";
-            let newAccount = Account(clientID: clientId, accountType: accountType, ClientName: clientName, Contact: contact, accountNo: generateAccountNum() , currentBalance: 0.0);
+            let accountType: String = Int(askQuestion(ques: "Enter the Account Type to be created:\n\n 1.Savings account \t 2 Current account\n")) == 1 ? "Savings" : "Current"
+            let newAccount = Account(clientID: clientId, accountType: accountType, ClientName: clientName, Contact: contact, accountNo: generateAccountNum() , currentBalance: 0.0, previousTransaction: 0.0)
             AllAccounts.append(newAccount);
             
             print("Account Created SuccessFully");
@@ -273,7 +274,7 @@ func handleBankerOptions () -> Void {
 
 func handleTransfer(srcAccNum: Int, destAccNum: Int, amount: Double) -> Bool {
     // find Source Account
-    var srcAccount: Account? = nil;
+    var srcAccount: Account? = nil
     for account in AllAccounts {
         if(account.accountNo == srcAccNum){
             srcAccount = account;
@@ -281,31 +282,32 @@ func handleTransfer(srcAccNum: Int, destAccNum: Int, amount: Double) -> Bool {
         }
     }
     if srcAccount == nil {
-        print("Account with account number \(srcAccNum) doesnt exist");
-        return false;
+        print("Account with account number \(srcAccNum) doesnt exist")
+        return false
     }
     var destAccount: Account? = nil;
     for account in AllAccounts {
            if(account.accountNo == destAccNum){
-               destAccount = account;
-               break;
+               destAccount = account
+               break
            }
        }
     if destAccount == nil {
-        print("Account with account number \(destAccNum) doesnt exist");
+        print("Account with account number \(destAccNum) doesnt exist")
         return false;
     }
     
     if(srcAccount!.currentBalance >= (amount)){
         srcAccount!.currentBalance -= amount;
-        srcAccount?.previousTransaction = amount;
+        srcAccount?.previousTransaction = -amount;
     }else {
-        print("Source Account Doesn't have balance close to $\(amount)");
-        return false;
+        print("Source Account Doesn't have balance close to $\(amount)")
+        return false
     }
-    destAccount?.currentBalance += amount;
-    print("Amount Transferred from \(srcAccNum) to \(destAccNum)");
-    return true;
+    destAccount?.currentBalance += amount
+    destAccount?.previousTransaction = +amount
+    print("Amount Transferred from \(srcAccNum) to \(destAccNum)")
+    return true
 }
 
 func handleDeposit(accountNum: Int, amount: Double)-> Bool{
@@ -449,8 +451,8 @@ func handleCustomerOptions (clientId: String) -> Void {
 }
 
 
-func findUser(userName: String) -> User? {
-    let index = AllUsers.firstIndex(where: {$0.username == userName});
+func findUser(userName: String , type: UserType) -> User? {
+    let index = AllUsers.firstIndex(where: {$0.username == userName && $0.type == type});
     if(index == nil){
         return nil;
     }else {
@@ -496,7 +498,7 @@ while (true){
             let userName = askQuestion(ques: "Enter UserName");
             let password = askQuestion(ques: "Enter Password");
             let type = UserType.Banker;
-            let user = findUser(userName: userName);
+            let user = findUser(userName: userName ,type: type);
             if(user == nil){
                 // user Doesnt exit add useraccount;
                 AllUsers.append(User(username: userName, password: password, type: type));
@@ -534,7 +536,7 @@ while (true){
             let userName = askQuestion(ques: "Enter Username");
             let password = askQuestion(ques: "Enter Password");
             let type = UserType.Customer;
-            let user = findUser(userName: userName);
+            let user = findUser(userName: userName , type: type);
             if(user == nil){
                 // user Doesnt exit add useraccount;
                 AllUsers.append(User(username: userName, password: password, type: type));
