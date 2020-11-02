@@ -28,6 +28,7 @@ enum ReadInt: Error {
     case InvalidNumberEntered
 }
 
+//function to handle read int exception
 func readInt() throws ->Int{
     
     guard let val = Int(readLine()!) else {
@@ -35,6 +36,10 @@ func readInt() throws ->Int{
     }
     return val;
 }
+/*
+ * loop to show the banking options for both customer and banker
+ * loops untill the user opts to exit
+ */
 
 while (true)
 {
@@ -91,6 +96,9 @@ while (true)
                         print("Try Again");
                     }
                 }
+                else{
+                    print("Invalid Number Entered")
+                }
             }catch ReadInt.InvalidNumberEntered {
                 print("Invalid Number Entered");
             }
@@ -138,9 +146,15 @@ while (true)
                     }
                     
                 }
+                else
+                {
+                    print("Invalid Number Entered");
+                }
             }catch ReadInt.InvalidNumberEntered {
                 print("Invalid Number Entered");
             }
+        }else{
+            print("Invalid Number Entered");
         }
     }
     catch ReadInt.InvalidNumberEntered {
@@ -150,7 +164,7 @@ while (true)
 }
 
 
-
+//Function to show banking option if the login type is banker
 func handleBankerOptions () -> Void {
     while (true){
         do
@@ -230,7 +244,7 @@ func handleBankerOptions () -> Void {
 }
 
 
-
+//function to handle options for customer activities
 func handleCustomerOptions (clientId: String) -> Void {
     while (true){
         do{
@@ -244,6 +258,7 @@ func handleCustomerOptions (clientId: String) -> Void {
             6.Update Personal Details
         """);
         print("Enter the option between 1 to 5:");
+        //calling the readInt function to handle if the customer entered value is other than int
         let option = try readInt()
         let accounts: [BankAccount] = BankAccount.findAccountsByClientId(clientId: clientId)!;
         switch option {
