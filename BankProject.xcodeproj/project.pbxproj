@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		914DD39A254D85B600E1D857 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DD399254D85B500E1D857 /* main.swift */; };
+		937613BC254F02CA0053B20D /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937613BB254F02CA0053B20D /* Account.swift */; };
+		937613BE254F03510053B20D /* BankAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937613BD254F03510053B20D /* BankAccount.swift */; };
+		937613C0254F0D2F0053B20D /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937613BF254F0D2F0053B20D /* FileReader.swift */; };
+		937613C2254F0E440053B20D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937613C1254F0E440053B20D /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,10 @@
 /* Begin PBXFileReference section */
 		914DD396254D85B500E1D857 /* BankProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BankProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		914DD399254D85B500E1D857 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		937613BB254F02CA0053B20D /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		937613BD254F03510053B20D /* BankAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccount.swift; sourceTree = "<group>"; };
+		937613BF254F0D2F0053B20D /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
+		937613C1254F0E440053B20D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				914DD399254D85B500E1D857 /* main.swift */,
+				937613BB254F02CA0053B20D /* Account.swift */,
+				937613BD254F03510053B20D /* BankAccount.swift */,
+				937613BF254F0D2F0053B20D /* FileReader.swift */,
+				937613C1254F0E440053B20D /* Helpers.swift */,
 			);
 			path = BankProject;
 			sourceTree = "<group>";
@@ -119,7 +131,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937613C2254F0E440053B20D /* Helpers.swift in Sources */,
+				937613BC254F02CA0053B20D /* Account.swift in Sources */,
 				914DD39A254D85B600E1D857 /* main.swift in Sources */,
+				937613C0254F0D2F0053B20D /* FileReader.swift in Sources */,
+				937613BE254F03510053B20D /* BankAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
