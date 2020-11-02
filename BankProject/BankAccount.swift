@@ -38,7 +38,7 @@ class BankAccount {
         print("\(clientID)\t\(accountNo)\t\(accountType)\t\(ClientName)\t\(Contact)")
     }
     func printInfoCustomer() -> Void {
-        print("\(clientID)\t\(accountNo)\t\(accountType)\t\(ClientName)\t\(Contact)\t\(currentBalance)\t\(previousTransaction))")
+        print("\(clientID)\t\(accountNo)\t\(accountType)\t\(ClientName)\t\(Contact)\t\(currentBalance)\t\(previousTransaction)")
     }
     
     static func handleWithDrawal(accountNum: Int, amount: Double)-> Bool{
@@ -54,6 +54,7 @@ class BankAccount {
             return false;
         }
         accountin?.currentBalance -= amount;
+        accountin?.previousTransaction = -amount
         
         return true;
     }
@@ -84,6 +85,7 @@ class BankAccount {
             return false;
         }
         accountin?.currentBalance += amount;
+        accountin?.previousTransaction = +amount
         
         return true;
     }
@@ -152,10 +154,18 @@ class BankAccount {
     static func saveAccounts ()-> Void {
         var text = "";
         for account in AllAccounts {
-            text.append(contentsOf: "\(account.clientID),\(account.accountType),\(account.ClientName),\(account.ClientName),\(account.Contact),\(account.accountType),\(account.currentBalance)\n") ;
+            text.append(contentsOf: "\(account.clientID),\(account.accountType),\(account.ClientName),\(account.Contact),\(account.accountNo),\(account.currentBalance),\(account.previousTransaction)\n") ;
         }
         
         FileReader.saveToFile(fileName: "AccountDetails.txt", content: text);
+    }
+    
+    static func isCustomerExist(user : String)-> Bool
+    {
+        if (AllAccounts.firstIndex(where: {$0.clientID == user}) != nil) == true {
+            return true
+        }
+        return false
     }
 
 }

@@ -26,6 +26,14 @@ class Helpers {
             AllBankersAndCustomers.append(Account(username: String(details[0]), password: String(details[1]), type: String(details[2]) == "Banker" ? .Banker : .Customer));
         }
     }
+    static func convertTextToBankers(text: String) -> Void {
+        let arr = text.split(separator: "\n");
+        arr.forEach{
+            let details = $0.split(separator: ",");
+            AllBankers.append(Banker(bankerID:String(details[0]) , bankerName: String(details[1]) ))
+        }
+    }
+    
 
     static func ExitIfWantsTo () -> Void {
         print("Press 0 to exit or 1 To go Back")
@@ -33,6 +41,7 @@ class Helpers {
         if(option == 0){
             BankAccount.saveAccounts ()
             Account.saveUserAccounts()
+            Banker.saveBankerAccounts()
             exit(0)
         }
     };

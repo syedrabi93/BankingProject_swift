@@ -29,8 +29,31 @@ class Account {
         if(index == nil){
             return nil;
         }else {
-            return AllBankersAndCustomers[index!];
+            if checkUser(userName: userName , type: type) == true {
+                    return AllBankersAndCustomers[index!];
+                }
+                else
+                {
+                    print ("The logged in user doesnt have active account available")
+                    return nil;
+                }
+            }
+        return nil;
+    }
+    
+    static func checkUser(userName: String , type: UserType) -> Bool
+    {
+        if type == UserType.Customer {
+            if BankAccount.isCustomerExist(user: userName) == true{
+                return true
+            }
         }
+        if type == UserType.Banker{
+            if Banker.isBankerExist(user: userName) == true{
+                return true
+            }
+        }
+        return false
     }
   
     static func checkSignIn (type: UserType) -> Account? {

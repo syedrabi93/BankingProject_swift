@@ -8,14 +8,18 @@
 
 import Foundation
 
+//array initialisation for the objects of type class BankAccount
 var AllAccounts: [BankAccount] = [BankAccount]();
 
-
+//array initialisation for the objects of type class Account
 var AllBankersAndCustomers: [Account] = [Account]();
 
+var AllBankers: [Banker] = [Banker]();
 
+//function call to initate the bank account details to be loaded to the array of objects
 BankAccount.readBankAccounts();
 Account.readUserAccounts();
+Banker.readUserBankers()
 
 enum ReadInt: Error {
     case InvalidNumberEntered
@@ -65,11 +69,17 @@ while (true){
             let password = Helpers.askQuestion(ques: "Enter Password");
             let type = UserType.Banker;
             let user = Account.findUser(userName: userName ,type: type);
-            if(user == nil){
+            let exist = Banker.isBankerExist(user: userName)
+            if(user == nil && exist == true){
                 // user Doesnt exit add useraccount;
                 AllBankersAndCustomers.append(Account(username: userName, password: password, type: type));
                 continue;
-            }else {
+            }
+            else if exist == false{
+                print ("The user \(userName) isn't an active employee. Invalid login")
+                
+            }
+            else {
                 print("A user with username \(userName) already exists.");
                 print("Try Again");
             }
@@ -100,11 +110,17 @@ while (true){
             let password = Helpers.askQuestion(ques: "Enter Password");
             let type = UserType.Customer;
             let user = Account.findUser(userName: userName , type: type);
-            if(user == nil){
+            let exist = BankAccount.isCustomerExist(user: userName)
+            if(user == nil && exist == true){
                 // user Doesnt exit add useraccount;
                 AllBankersAndCustomers.append(Account(username: userName, password: password, type: type));
                 continue;
-            }else {
+            }
+            else if exist == false{
+                print ("The user \(userName) doesn't have active accout. Invalid login . First create a bank account with the help of banker and then create login after successful account activation")
+                
+            }
+            else {
                 print("A user with username \(userName) already exists.");
                 print("Try Again");
             }
@@ -212,11 +228,13 @@ func handleCustomerOptions (clientId: String) -> Void {
             
             
             print("Your BankAccount Details");
+            print("clientID AccNo AccType    Name      Contact cur.Balance prev.Transaction")
             accounts.forEach({$0.printInfoCustomer()});
          
             break;
         case 2:
             print("Your BankAccount Details");
+            print("clientID AccNo AccType     Name      Contact cur.Balance prev.Transaction")
             accounts.forEach({$0.printInfoCustomer()});
             
          let sourceAccountNum = Int(Helpers.askQuestion(ques: "Confirm the BankAccount number from which the transaction to be done (from the list shown) "))!;
@@ -228,6 +246,7 @@ func handleCustomerOptions (clientId: String) -> Void {
                     
         case 3:
             print("Your BankAccount Details");
+            print("clientID AccNo AccType     Name        Contact cur.Balance prev.Transaction")
             accounts.forEach({$0.printInfoCustomer()});
             let accountNum = Int(Helpers.askQuestion(ques: "Confirm the BankAccount number to be deposited\n"))!;
             
@@ -239,6 +258,7 @@ func handleCustomerOptions (clientId: String) -> Void {
             }
         case 4:
             print("Your BankAccount Details");
+            print("clientID AccNo AccType      Name       Contact cur.Balance prev.Transaction")
                        accounts.forEach({$0.printInfoCustomer()});
             let accountNum = Int(Helpers.askQuestion(ques: "Confirm the BankAccount number from which you want to withdraw the amount:"))!;
             let amount = Double(Helpers.askQuestion(ques: "Enter the Amount "))!;
@@ -250,6 +270,7 @@ func handleCustomerOptions (clientId: String) -> Void {
             }
         case 5 :
             print("Your BankAccount Details");
+            print("clientID AccNo AccType     Name       Contact cur.Balance prev.Transaction")
             accounts.forEach({$0.printInfoCustomer()});
             let utils = ["Mobile Recharge","Electricity Bill", "Wifi Bill", "Insurance", "Gas Bill"];
             let ubNum = Int(Helpers.askQuestion(ques: """
