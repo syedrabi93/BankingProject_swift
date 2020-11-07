@@ -8,8 +8,11 @@
 
 import Foundation
 
+//Class to ahandle file reading activities
 class FileReader {
     
+    //function to save all the object details in to the file
+    //parameter: file name and the content to be written is passed to the file
     static func saveToFile (fileName:String, content: String)-> Void {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 
@@ -26,6 +29,7 @@ class FileReader {
         }
     }
 
+    //Function to read the file content and returns the content of the file in string format
     static func readFromFile (fileName: String) -> String {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first  {
 

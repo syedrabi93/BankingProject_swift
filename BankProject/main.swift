@@ -169,6 +169,7 @@ func handleBankerOptions () -> Void {
     while (true){
         do
         {
+            //banker functions option selection
         print("""
             Select the operation you would like to do
             1.List accounts
@@ -188,6 +189,7 @@ func handleBankerOptions () -> Void {
             print("If Existing Customer Press 0 otherwise 1");
             var oldAccount : BankAccount? = nil;
             let existingCustomer = Int(readLine()!) == 0;
+            //if existing account take the customer data automatically else ask the user
             if(existingCustomer){
                 while (true){
                     print("Enter Existing Client Id :")
@@ -229,7 +231,7 @@ func handleBankerOptions () -> Void {
             }
             
         }
-        
+        //checks if the wants to exit from the application
         Helpers.ExitIfWantsTo();
         
         }catch ReadInt.InvalidNumberEntered {

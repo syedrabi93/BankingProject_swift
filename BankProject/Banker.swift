@@ -8,16 +8,19 @@
 
 import Foundation
 
+//Class to handle Banker details
 class Banker
 {
     var bankerID: String
     var bankerName: String
     
+    //initialisation
     init (bankerID: String , bankerName: String){
         self.bankerID = bankerID
         self.bankerName = bankerName
     }
     
+    //checks if the logged in banker is an active employee
     static func  isBankerExist(user : String)-> Bool
     {
         if (AllBankers.firstIndex(where: {$0.bankerID == user}) != nil) == true {
@@ -26,6 +29,9 @@ class Banker
         return false
     }
     
+    /* function to preload the banker details if the file is not empty
+     * if not load the customer login data from from here (testing purpose)
+     */
     static func readUserBankers () -> Void {
         let fileName = "Bankers.txt";
         var text = """
@@ -39,6 +45,9 @@ class Banker
         Helpers.convertTextToBankers(text: text);
         
     }
+    
+    //Function to finally update the file with the data while leaving the application
+    //loads the data from objects to the file for permanent storage
     
     static func saveBankerAccounts () -> Void {
         var text = "";

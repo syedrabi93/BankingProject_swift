@@ -8,8 +8,12 @@
 
 import Foundation
 
-
+//Helper class contains the common methods thats used across the application to avoid redundant code
 class Helpers {
+    /*Function to convert the text read from the file or the preloaded text to the format     * required for the object type BankAccount by sepreating it with the delimitter ","
+     * parameters : Tect to be converted
+     * returns void
+     */
     static func convertTextToAccounts(text: String) -> Void {
         let arr = text.split(separator: "\n");
         arr.forEach{
@@ -18,7 +22,10 @@ class Helpers {
         }
     }
 
-
+    /*Function to convert the text read from the file or the preloaded text to the format     * required for the object type Account by sepreating it with the delimitter ","
+     * parameters : Tect to be converted
+     * returns void
+     */
     static func convertTextToUsers(text: String) -> Void {
         let arr = text.split(separator: "\n");
         arr.forEach{
@@ -26,6 +33,10 @@ class Helpers {
             AllBankersAndCustomers.append(Account(username: String(details[0]), password: String(details[1]), type: String(details[2]) == "Banker" ? .Banker : .Customer));
         }
     }
+    /*Function to convert the text read from the file or the preloaded text to the format     * required for the object type Banker by sepreating it with the delimitter ","
+     * parameters : Tect to be converted
+     * returns void
+     */
     static func convertTextToBankers(text: String) -> Void {
         let arr = text.split(separator: "\n");
         arr.forEach{
@@ -34,7 +45,7 @@ class Helpers {
         }
     }
     
-
+    //When the user decides to exit from the application, this functions saves all the object values to the corresponding storage file
     static func ExitIfWantsTo () -> Void {
         print("Press 0 to exit or 1 To go Back")
         let option = Int(readLine()!)!;
@@ -45,7 +56,7 @@ class Helpers {
             exit(0)
         }
     };
-
+    //function to get user inputs
     static func askQuestion (ques: String)-> String {
         print(ques);
         return readLine()!;

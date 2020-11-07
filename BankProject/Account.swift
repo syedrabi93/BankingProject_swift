@@ -8,22 +8,30 @@
 
 import Foundation;
 
+//enum to maintain the user type
 enum UserType {
     case Banker
     case Customer
 }
 
-
+//class for login and maintain accounts
 class Account {
     
     var username: String;
     var password: String;
-    var type: UserType;
+    var type: UserType; // takes the type from the usertype enum
+    
+    //initialisation
     init(username: String, password: String, type: UserType){
         self.username = username;
         self.password = password;
         self.type = type;
     }
+    
+    /* function that perfroms the user validation with the given username and type
+    *  parametes : username and the user type
+    *  returns void
+    */
     static func findUser(userName: String , type: UserType) -> Account? {
         let index = AllBankersAndCustomers.firstIndex(where: {$0.username == userName && $0.type == type});
         if(index == nil){
@@ -41,6 +49,10 @@ class Account {
         return nil;
     }
     
+    /* Function to check if the given user is an existing user and returns true
+     * parametes : username and the user type
+     * returns : boolean
+     */
     static func checkUser(userName: String , type: UserType) -> Bool
     {
         if type == UserType.Customer {
@@ -55,7 +67,13 @@ class Account {
         }
         return false
     }
-  
+    
+    
+    /* Function to validate the sign in for the given username and password
+     * gets the user name and passwork on run time and validates if its a valid login
+     * parameters: USertype
+     * returns void
+     */
     static func checkSignIn (type: UserType) -> Account? {
         print("Enter Username:");
         let username = readLine()!;
@@ -70,7 +88,10 @@ class Account {
         }
         return currentUser;
     }
-   
+    
+    /* function to preload the user details if the file is not empty
+     * if not load the customer login data from from here (testing purpose)
+     */
     static func readUserAccounts () -> Void {
         let fileName = "Users.txt";
         var text = """
@@ -86,6 +107,9 @@ class Account {
         Helpers.convertTextToUsers(text: text);
         
     }
+    
+    //Function to finally update the file with the data while leaving the application
+    //loads the data from objects to the file for permanent storage
     
     static func saveUserAccounts () -> Void {
         var text = "";
