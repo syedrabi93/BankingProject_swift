@@ -96,9 +96,6 @@ while (true)
                         print("Try Again");
                     }
                 }
-                else{
-                    print("Invalid Number Entered")
-                }
             }catch ReadInt.InvalidNumberEntered {
                 print("Invalid Number Entered");
             }
@@ -212,6 +209,8 @@ func handleBankerOptions () -> Void {
             let contact: String = oldAccount == nil ? Helpers.askQuestion(ques: "Enter Contact:"): oldAccount!.Contact;
             let accountType: String = Int(Helpers.askQuestion(ques: "Enter the BankAccount Type to be created:\n\n 1.Savings account \t 2 Current account\n")) == 1 ? "Savings" : "Current"
             let newAccount = BankAccount(clientID: clientId, accountType: accountType, ClientName: clientName, Contact: contact, accountNo: BankAccount.generateAccountNum() , currentBalance: 0.0, previousTransaction: 0.0)
+            
+            //adds the account
             AllAccounts.append(newAccount);
             
             print("BankAccount Created SuccessFully");
@@ -225,6 +224,7 @@ func handleBankerOptions () -> Void {
             
             let index = AllAccounts.firstIndex(where: {$0.accountNo == accountNum && $0.clientID == clientId && $0.accountType == accountType});
             if(index != nil){
+                //deletes the account
                 AllAccounts.remove(at: index!);
             }else {
                 print("Could Find The BankAccount With Provided Details . Try Again");
